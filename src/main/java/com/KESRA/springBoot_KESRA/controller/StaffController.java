@@ -4,6 +4,8 @@ import com.KESRA.springBoot_KESRA.entity.Staff_Class;
 import com.KESRA.springBoot_KESRA.repository.StaffEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -33,16 +35,7 @@ public List<Staff_Class> getAllEntities() {
     System.out.println("Saved staff data: " + savedStaff);
 
     return savedStaff;
-    /*
-    //sample data for postman
-    {
-    "first_name": "Harsh",
-    "second_name": "Software Developer",
-    "department": "Teaching",
-    "wage":36784.56,
-    "project_completion_rate": 45.5
-}
-     */
+
 }
 
     @PutMapping("/updateStaff")
@@ -73,6 +66,18 @@ public List<Staff_Class> getAllEntities() {
         }
     }
 
+
+    @DeleteMapping("/deleteStaff/{emp_no}")
+    public ResponseEntity<String> deleteStaffById(@PathVariable(value = "emp_no") long emp_no) {
+        try {
+            staffEntityRepository.deleteById(emp_no);
+            // If deletion is successful, return a success message
+            return new ResponseEntity<>("Successfully deleted", HttpStatus.OK);
+        } catch (Exception e) {
+            // If deletion fails, return an error message
+            return new ResponseEntity<>("Failed to delete", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 }
