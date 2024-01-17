@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class Staff_Class {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int emp_no;
+    private long emp_no;
 
     @Column(name = "first_name")
     private String first_name;
@@ -24,10 +24,12 @@ public class Staff_Class {
     private Double project_completion_rate;
 
     public Staff_Class() {
+        super();
 
     }
 
     public Staff_Class(String first_name, String second_name, String department, Double wage, Double project_completion_rate) {
+       super();
         this.first_name = first_name;
         this.second_name = second_name;
         this.department = department;
@@ -35,11 +37,11 @@ public class Staff_Class {
         this.project_completion_rate = project_completion_rate;
     }
 
-    public int getEmp_no() {
+    public long getEmp_no() {
         return emp_no;
     }
 
-    public void setEmp_no(int emp_no) {
+    public void setEmp_no(long emp_no) {
         this.emp_no = emp_no;
     }
 
