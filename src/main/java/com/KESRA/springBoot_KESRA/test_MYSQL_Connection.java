@@ -14,7 +14,7 @@ public class test_MYSQL_Connection implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         try {
-            String result = jdbcTemplate.queryForObject("SELECT 'Database connection successful'", String.class);
+            String result = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM information_schema.tables WHERE table_name = 'staff_records'", String.class);
             System.out.println("Database connection test result: " + result);
         } catch (Exception e) {
             System.err.println("Database connection test failed: " + e.getMessage());

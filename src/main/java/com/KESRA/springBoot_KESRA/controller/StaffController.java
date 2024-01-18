@@ -14,7 +14,7 @@ import java.util.*;
 @RequestMapping("/api")
 public class StaffController {
 
-@Autowired
+@Autowired //for injecting dependencies automatically like spring boot beans
    private StaffEntityRepository staffEntityRepository;
 
 @GetMapping("/stafflist")

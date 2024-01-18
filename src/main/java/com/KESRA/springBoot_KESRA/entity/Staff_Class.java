@@ -1,7 +1,7 @@
 package com.KESRA.springBoot_KESRA.entity;
 
 import jakarta.persistence.*;
-@Entity
+@Entity//this annotation marks the class as a JPA entity for mapping java objects to database entities
 @Table(name = "staff_records")
 public class Staff_Class {
     @Id
