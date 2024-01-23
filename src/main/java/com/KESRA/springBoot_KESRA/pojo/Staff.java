@@ -1,9 +1,9 @@
-package com.KESRA.springBoot_KESRA.entity;
+package com.KESRA.springBoot_KESRA.pojo;
 
 import jakarta.persistence.*;
 @Entity//this annotation marks the class as a JPA entity for mapping java objects to database entities
 @Table(name = "staff_records")
-public class Staff_Class {
+public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long emp_no;
@@ -23,12 +23,12 @@ public class Staff_Class {
     @Column(name="project_completion_rate")
     private Double project_completion_rate;
 
-    public Staff_Class() {
+    public Staff() {
         super();
 
     }
 
-    public Staff_Class(String first_name, String second_name, String department, Double wage, Double project_completion_rate) {
+    public Staff(String first_name, String second_name, String department, Double wage, Double project_completion_rate) {
        super();
         this.first_name = first_name;
         this.second_name = second_name;

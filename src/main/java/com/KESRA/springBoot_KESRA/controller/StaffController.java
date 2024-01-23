@@ -1,9 +1,10 @@
 package com.KESRA.springBoot_KESRA.controller;
 
-import com.KESRA.springBoot_KESRA.entity.Staff_Class;
+import com.KESRA.springBoot_KESRA.implementation.Staff_Implementation;
+import com.KESRA.springBoot_KESRA.pojo.Staff;
 import com.KESRA.springBoot_KESRA.repository.StaffEntityRepository;
+import com.KESRA.springBoot_KESRA.service.Staff_Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,71 +13,29 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api")
-public class StaffController {
-
-@Autowired //for injecting dependencies automatically like spring boot beans
-   private StaffEntityRepository staffEntityRepository;
+public class StaffController extends Staff_Implementation {
 
 @GetMapping("/stafflist")
-public List<Staff_Class> getAllEntities() {
-    return staffEntityRepository.findAll();
+public List<Staff> getAllEntities()
+{
+    return findAll();
 }
 
 @PostMapping("/postStaff")
-    public Staff_Class addStaff(@RequestBody Staff_Class staffClass)
+    public void addStaff(@RequestBody Staff staffClass)
 {
-    // Log input data
-    System.out.println("Received staff data: " + staffClass);
-
-    // Save the staff data
-    Staff_Class savedStaff = staffEntityRepository.save(staffClass);
-
-    // Log the saved staff data
-    System.out.println("Saved staff data: " + savedStaff);
-
-    return savedStaff;
-
+    saveAndFlush(staffClass) ;
 }
 
     @PutMapping("/updateStaff")
-    public Staff_Class updateStaff(@RequestBody Staff_Class staffClass) {
-        // Check if staffClass has a valid ID
-        if (staffClass.getEmp_no() <= 0) {
-            // If the ID is null, throw an exception indicating that the ID is required
-            throw new IllegalArgumentException("ID is required for updating staff");
-        }
-
-        // Check if the staff member with the given ID exists
-        Optional<Staff_Class> existingStaffOptional = staffEntityRepository.findById(staffClass.getEmp_no());
-
-        if (existingStaffOptional.isPresent()) {
-            // If the staff member exists, update the details
-            Staff_Class existingStaff = existingStaffOptional.get();
-            existingStaff.setDepartment(staffClass.getDepartment());
-            existingStaff.setFirst_name(staffClass.getFirst_name());
-            existingStaff.setSecond_name(staffClass.getSecond_name());
-            existingStaff.setWage(staffClass.getWage());
-            existingStaff.setProject_completion_rate(staffClass.getProject_completion_rate());
-
-            // Save the updated staff member
-            return staffEntityRepository.save(existingStaff);
-        } else {
-            // If the staff member does not exist, create a new staff member
-            return staffEntityRepository.save(staffClass);
-        }
+   public void putStaffMember(@RequestBody Staff staff)
+    {
+        updateStaff(staff);
     }
 
-
     @DeleteMapping("/deleteStaff/{emp_no}")
-    public ResponseEntity<String> deleteStaffById(@PathVariable(value = "emp_no") long emp_no) {
-        try {
-            staffEntityRepository.deleteById(emp_no);
-            // If deletion is successful, return a success message
-            return new ResponseEntity<>("Successfully deleted", HttpStatus.OK);
-        } catch (Exception e) {
-            // If deletion fails, return an error message
-            return new ResponseEntity<>("Failed to delete", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public void delete_StaffById(long emp_no) {
+        deleteStaffById( emp_no);
     }
 
 
