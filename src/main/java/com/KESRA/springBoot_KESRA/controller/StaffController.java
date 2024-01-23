@@ -34,8 +34,8 @@ public List<Staff> getAllEntities()
     }
 
     @DeleteMapping("/deleteStaff/{emp_no}")
-    public void delete_StaffById(long emp_no) {
-        deleteStaffById( emp_no);
+    public void delete_StaffById(@PathVariable(value = "emp_no") long emp_no) {
+        deleteStaffById(emp_no);
     }
 
 
