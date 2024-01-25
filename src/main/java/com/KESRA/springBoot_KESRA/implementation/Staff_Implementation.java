@@ -11,7 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -24,6 +24,9 @@ public class Staff_Implementation implements Staff_Service {
 
     @Autowired
     StaffEntityRepository staffEntityRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public Staff_Implementation() {
 
@@ -198,7 +201,7 @@ public class Staff_Implementation implements Staff_Service {
             // If the staff member exists, update the details
             Staff existingStaff = existingStaffOptional.get();
             existingStaff.setDepartment(staffClass.getDepartment());
-            existingStaff.setFirst_name(staffClass.getFirst_name());
+            existingStaff.setName(staffClass.getName());
             existingStaff.setSecond_name(staffClass.getSecond_name());
             existingStaff.setWage(staffClass.getWage());
             existingStaff.setProject_completion_rate(staffClass.getProject_completion_rate());
@@ -227,4 +230,14 @@ public class Staff_Implementation implements Staff_Service {
 
 
 
+    public String addUser(@RequestBody Staff staff){
+        staff.setPassword(passwordEncoder.encode(staff.getPassword()));
+        save(staff);
+        return "user added successfully";
+    }
+
+    @Override
+    public Optional<Staff> findByName(String name) {
+        return Optional.empty();
+    }
 }

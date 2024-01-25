@@ -9,7 +9,10 @@ public class Staff {
     private long emp_no;
 
     @Column(name = "first_name")
-    private String first_name;
+    private String name;
+
+    @Column(name="password")
+    private String password;
 
     @Column(name="second_name")
     private String second_name;
@@ -20,6 +23,9 @@ public class Staff {
     @Column(name="wage")
     private Double wage;
 
+    @Column(name="roles")
+    private String roles;
+
     @Column(name="project_completion_rate")
     private Double project_completion_rate;
 
@@ -28,13 +34,23 @@ public class Staff {
 
     }
 
-    public Staff(String first_name, String second_name, String department, Double wage, Double project_completion_rate) {
+    public Staff(String name, String password, String second_name, String department, Double wage, String roles, Double project_completion_rate) {
        super();
-        this.first_name = first_name;
+        this.name = name;
+        this.password = password;
         this.second_name = second_name;
         this.department = department;
         this.wage = wage;
+        this.roles = roles;
         this.project_completion_rate = project_completion_rate;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
     public long getEmp_no() {
@@ -45,12 +61,12 @@ public class Staff {
         this.emp_no = emp_no;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getName() {
+        return name;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSecond_name() {
@@ -83,5 +99,13 @@ public class Staff {
 
     public void setProject_completion_rate(Double project_completion_rate) {
         this.project_completion_rate = project_completion_rate;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -7,6 +7,7 @@ import com.KESRA.springBoot_KESRA.service.Staff_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -15,13 +16,17 @@ import java.util.*;
 @RequestMapping("/api")
 public class StaffController extends Staff_Implementation {
 
+
 @GetMapping("/stafflist")
+@PreAuthorize("hasAuthority('USER')")
 public List<Staff> getAllEntities()
 {
     return findAll();
 }
 
+
 @PostMapping("/postStaff")
+@PreAuthorize("hasAuthority('ADMIN')")
     public void addStaff(@RequestBody Staff staffClass)
 {
     saveAndFlush(staffClass) ;
@@ -36,6 +41,12 @@ public List<Staff> getAllEntities()
     @DeleteMapping("/deleteStaff/{emp_no}")
     public void delete_StaffById(@PathVariable(value = "emp_no") long emp_no) {
         deleteStaffById(emp_no);
+    }
+
+    @PostMapping("/new")
+    public String addNewUser(@RequestBody Staff staff)
+    {
+        return addUser(staff);
     }
 
 
