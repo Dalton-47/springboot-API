@@ -5,6 +5,7 @@ import com.KESRA.springBoot_KESRA.pojo.Staff;
 import com.KESRA.springBoot_KESRA.repository.StaffEntityRepository;
 import com.KESRA.springBoot_KESRA.service.Staff_Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.pulsar.PulsarProperties;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +27,9 @@ import java.util.function.Function;
 
 
 public class Staff_Implementation implements Staff_Service {
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Autowired
     StaffEntityRepository staffEntityRepository;
@@ -245,8 +253,18 @@ public class Staff_Implementation implements Staff_Service {
         return Optional.empty();
     }
 
+
     public String authenticateAndGetToken(@RequestBody AuthRequest authRequest )
     {
-       return jwtService.generateToken(authRequest.getName());
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getName(),authRequest.getPassword()));
+
+        if(authentication.isAuthenticated())
+        {
+            return jwtService.generateToken(authRequest.getName());
+        }
+        else {
+            throw new UsernameNotFoundException("invalid user request !");
+        }
+
     }
 }

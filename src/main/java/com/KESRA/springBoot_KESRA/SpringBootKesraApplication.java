@@ -10,6 +10,7 @@ public class SpringBootKesraApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootKesraApplication.class, args);
 
+
 	}
 
 }
