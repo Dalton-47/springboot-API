@@ -44,7 +44,7 @@ public List<Staff> getAllEntities()
     }
 
     @PostMapping("/new")
-    public String addNewUser(@RequestBody Staff staff)
+    public Staff addNewUser(@RequestBody Staff staff)
     {
         return addUser(staff);
     }

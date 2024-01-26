@@ -1,14 +1,17 @@
 package com.KESRA.springBoot_KESRA.pojo;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
 @Entity//this annotation marks the class as a JPA entity for mapping java objects to database entities
 @Table(name = "staff_records")
+@Data
 public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long emp_no;
 
-    @Column(name = "first_name")
+    @Column(name = "name")
     private String name;
 
     @Column(name="password")

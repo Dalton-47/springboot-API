@@ -34,7 +34,7 @@ public class Staff_Implementation implements Staff_Service {
 
     @Override
     public <S extends Staff> S save(S entity) {
-        return null;
+        return staffEntityRepository.save(entity);
     }
 
     @Override
@@ -230,10 +230,10 @@ public class Staff_Implementation implements Staff_Service {
 
 
 
-    public String addUser(@RequestBody Staff staff){
+    public Staff addUser(@RequestBody Staff staff){
         staff.setPassword(passwordEncoder.encode(staff.getPassword()));
         save(staff);
-        return "user added successfully";
+        return staff;
     }
 
     @Override
