@@ -1,5 +1,6 @@
 package com.KESRA.springBoot_KESRA.controller;
 
+import com.KESRA.springBoot_KESRA.dto.AuthRequest;
 import com.KESRA.springBoot_KESRA.implementation.Staff_Implementation;
 import com.KESRA.springBoot_KESRA.pojo.Staff;
 import com.KESRA.springBoot_KESRA.repository.StaffEntityRepository;
@@ -18,7 +19,7 @@ public class StaffController extends Staff_Implementation {
 
 
 @GetMapping("/stafflist")
-@PreAuthorize("hasAuthority('USER')")
+@PreAuthorize("hasAuthority('admin')")
 public List<Staff> getAllEntities()
 {
     return findAll();
@@ -26,7 +27,7 @@ public List<Staff> getAllEntities()
 
 
 @PostMapping("/postStaff")
-@PreAuthorize("hasAuthority('ADMIN')")
+@PreAuthorize("hasAuthority('user')")
     public void addStaff(@RequestBody Staff staffClass)
 {
     saveAndFlush(staffClass) ;
@@ -44,9 +45,16 @@ public List<Staff> getAllEntities()
     }
 
     @PostMapping("/new")
+    //@PreAuthorize("hasAuthority('admin')")
     public Staff addNewUser(@RequestBody Staff staff)
     {
         return addUser(staff);
+    }
+
+    @PostMapping("/authenticate")
+    public String authenticate(@RequestBody AuthRequest authRequest )
+    {
+         return authenticateAndGetToken(authRequest);
     }
 
 

@@ -1,5 +1,6 @@
 package com.KESRA.springBoot_KESRA.implementation;
 
+import com.KESRA.springBoot_KESRA.dto.AuthRequest;
 import com.KESRA.springBoot_KESRA.pojo.Staff;
 import com.KESRA.springBoot_KESRA.repository.StaffEntityRepository;
 import com.KESRA.springBoot_KESRA.service.Staff_Service;
@@ -24,6 +25,9 @@ public class Staff_Implementation implements Staff_Service {
 
     @Autowired
     StaffEntityRepository staffEntityRepository;
+
+    @Autowired
+    private JwtService jwtService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -239,5 +243,10 @@ public class Staff_Implementation implements Staff_Service {
     @Override
     public Optional<Staff> findByName(String name) {
         return Optional.empty();
+    }
+
+    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest )
+    {
+       return jwtService.generateToken(authRequest.getName());
     }
 }
