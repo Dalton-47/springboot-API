@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+  <title>Form 3</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <!-- Include Font Awesome via CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<div class="wrapper">
+  <div>
+    <h3 style="display: inline-block;">Student data/</h3>
+    <h3 style="display: inline-block;"> Course Info/</h3>
+    <h3 style="display: inline-block; color: red;"> Semester Info</h3>
+  </div>
+
+  <div class="header">
+    <ul>
+      <li class="form_1_progessbar">
+        <div>
+          <p>1</p>
+        </div>
+      </li>
+      <li class="form_2_progessbar">
+        <div>
+          <p>2</p>
+        </div>
+      </li>
+      <li class="active form_3_progessbar">
+        <div>
+          <p>3</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!--Form Class-->
+  <!--Form Class-->
+  <div class="form_wrap">
+    <div class="form_3 data_info" style="display: block;">
+      <h2>Semester Info</h2>
+      <form id="semesterDetails" th:action="@{/api/process-form-three}" th:object="${semesterForm}" method="POST">
+        <input type="hidden" name="formType" value="form3">
+        <div class="form_container">
+          <div class="input_wrap">
+            <label for="semesterName">Semester Name</label>
+            <input type="text" th:field="*{semesterName}" class="input" id="semesterName">
+          </div>
+          <div class="input_wrap">
+            <label for="semesterID">Course ID</label>
+            <input type="text" th:field="*{semesterID}" class="input" id="semesterID">
+          </div>
+          <div class="input_wrap">
+            <label for="semesterDetail">Semester Detail</label>
+            <input type="text" th:field="*{semesterDetail}" class="input" id="semesterDetail">
+          </div>
+        </div>
+        <div class="btns_wrap form_2_btns">
+          <button type="submit" class="btn_next">Submit <span class="icon"><ion-icon name="arrow-forward-sharp"></ion-icon></span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+</div>
+
+<script type="text/javascript" src="/scripts.js"></script>
+
+</body>
+</html>
