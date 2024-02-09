@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -20,8 +21,8 @@ import static java.security.KeyRep.Type.SECRET;
 public class JwtService {
 
 
-    public static final String SECRET = "jeQVfRyqzSEHQUBIBi1OahglGIFroI7SiyvX/FPb+N7Y3uWTnTkrFTqu6HS7AruM";
-
+    @Value("${key.gen}")
+     String SECRET;
     public String extractUserName(String token)
     {
         return extractClaim(token, Claims::getSubject);
