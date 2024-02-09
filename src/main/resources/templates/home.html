@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SpringBoot Web Multi-Form</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- Include Font Awesome via CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="header">
+        <ul>
+            <li class="active form_1_progessbar">
+                <div>
+                    <p>1</p>
+                </div>
+            </li>
+            <li class="form_2_progessbar">
+                <div>
+                    <p>2</p>
+                </div>
+            </li>
+            <li class="form_3_progessbar">
+                <div>
+                    <p>3</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!--Form Class-->
+    <div class="form_wrap">
+        <div class="form_1 data_info">
+            <h2>Student Info</h2>
+            <form id="bioDetails" th:action="@{/process-form}" th:object="${studentForm}" method="POST">
+                <input type="hidden" name="formType" value="form1">
+                <div class="form_container">
+                    <div class="input_wrap">
+                        <label for="file">Upload File</label>
+                        <input type="file" name="file" class="input" id="file" th:field="*{file}">
+                    </div>
+                    <div class="input_wrap">
+                        <label for="password">Password</label>
+                        <input type="password" th:field="*{password}" class="input" id="password">
+                    </div>
+                    <div class="input_wrap">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" th:field="*{confirmPassword}" class="input" id="confirm_password">
+                    </div>
+                </div>
+                <div class="btns_wrap form_1_btns">
+                    <button type="submit" class="btn_next" onclick="run(event)" >Submit <span class="icon"><ion-icon name="arrow-forward-sharp"></ion-icon></span></button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form_2 data_info" style="display: none;">
+            <h2>Course Info</h2>
+            <form id="courseDetails" th:action="@{/process-form}" th:object="${courseForm}" method="POST">
+                <input type="hidden" name="formType" value="form2">
+                <div class="form_container">
+                    <div class="input_wrap">
+                        <label for="courseName">Course Name</label>
+                        <input type="text" th:field="*{courseName}" class="input" id="courseName">
+                    </div>
+                    <div class="input_wrap">
+                        <label for="courseID">Course ID</label>
+                        <input type="text" th:field="*{courseID}" class="input" id="courseID">
+                    </div>
+                    <div class="input_wrap">
+                        <label for="courseDetail">Course Detail</label>
+                        <input type="text" th:field="*{courseDetail}" class="input" id="courseDetail">
+                    </div>
+                </div>
+                <div class="common_btns form_2_btns">
+                    <button type="submit" class="btn_next">SubmitNext <span class="icon"><ion-icon name="arrow-forward-sharp"></ion-icon></span></button>
+                </div>
+            </form>
+        </div>
+        <div class="form_3 data_info" style="display: none;">
+            <h2>Semester Info</h2>
+            <form id="semesterDetails" th:action="@{/process-form}" th:object="${semesterForm}" method="POST">
+                <input type="hidden" name="formType" value="form3">
+                <div class="form_container">
+                    <div class="input_wrap">
+                        <label for="semesterName">Semester Name</label>
+                        <input type="text" th:field="*{semesterName}" class="input" id="semesterName">
+                    </div>
+                    <div class="input_wrap">
+                        <label for="semesterID">Course ID</label>
+                        <input type="text" th:field="*{semesterID}" class="input" id="semesterID">
+                    </div>
+                    <div class="input_wrap">
+                        <label for="courseDetail">Semester Detail</label>
+                        <input type="text" th:field="*{semesterDetail}" class="input" id="semesterDetail">
+                    </div>
+                </div>
+                <div class="common_btns form_3_btns">
+                    <button type="submit" class="btn_next">SubmitFinal <span class="icon"><ion-icon name="arrow-forward-sharp"></ion-icon></span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="btns_wrap">
+        <div class="common_btns form_2_btns" style="display: none;">
+            <button type="button" class="btn_back"><span class="icon"><ion-icon name="arrow-back-sharp"></ion-icon></span>Back</button>
+            <button type="button" class="btn_next">Next <span class="icon"><ion-icon name="arrow-forward-sharp"></ion-icon></span></button>
+        </div>
+        <div class="common_btns form_3_btns" style="display: none;">
+            <button type="button" class="btn_back"><span class="icon"><ion-icon name="arrow-back-sharp"></ion-icon></span>Back</button>
+            <button type="button" class="btn_done">Done</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal_wrapper">
+    <div class="shadow"></div>
+    <div class="success_wrap">
+        <span class="modal_icon"><ion-icon name="checkmark-sharp"></ion-icon></span>
+        <p>You have successfully completed the process.</p>
+    </div>
+</div>
+
+<script type="text/javascript" src="scripts.js"></script>
+
+</body>
+</html>

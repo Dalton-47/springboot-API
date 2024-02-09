@@ -32,5 +32,5 @@ build/
 ### VS Code ###
 .vscode/
 
-# Ignore application properties file
-application.properties
+# Ignore application.properties file
+C:\JAVA PROJECTS\springboot-API\src\main\resources\application.properties
